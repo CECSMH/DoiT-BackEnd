@@ -3,6 +3,7 @@ const router = express.Router(); //using the express router module.
 
 const taskController = require('../controller/Controller'); //importing Controller script
 const Validation = require('../middlewares/Validation'); //importing Validation script
+const Syncronization = require('../controller/sync');
 
 
 router.post('/', Validation, taskController.create);//task creation route.
@@ -23,6 +24,9 @@ router.get('/filter/year/:mac', taskController.yearFilter);
 router.get('/filter/done/:mac', taskController.doneFilter);
 /* #################################################### */
 
+
+router.get('/sync/pc/:id', Syncronization.computer)
+router.get('/sync/cell/:mac/:id', Syncronization.cell)
 
 
 module.exports = router; 

@@ -18,17 +18,18 @@ const Validation = async (requisition, response, next) => {
         return response.status(400).json({ error: 'A descrição é obrigatoria!'})
     }else if(!when){
         return response.status(400).json({ error: 'A Data e Hora são obrigatorias!'})
-    }else if(isPast(new Date(when))){
-        return response.status(400).json({ error: 'Escolha uma data no futuro!'})
     }else{
     
     /* ####### Checking if there are two tasks for the same time or in the past ################ */
         let exists;
 
         if(requisition.params.id){
-            exists = await Model.findOne({'_id':{'&ne': requisition.params.id},'when': {'$eq':new Date(when)}, 'mac': {'$in': mac}});
+            exists = await Model.findOne({'_id': {'$ne': requisition.params.id},'when': {'$eq':new Date(when)}, 'mac': {'$in': mac}});
         }else{
+            if(isPast(new Date(when))){
+                return response.status(400).json({ error: 'Escolha uma data no futuro!'})}
             exists = await Model.findOne({'when': {'$eq':new Date(when)}, 'mac': {'$in': mac}});
+            
         }
 
        
