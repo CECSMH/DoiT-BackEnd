@@ -6,6 +6,7 @@ Backend do app Doit!, api rest responsavel por alimentar a aplicação web e mob
  <ul>
 <li>Node</li>
 <li>Express</li>
+<li>Mongoose</li>
 <li>Date fns</li>
 <li>Node-cache</li>
 </ul>
